@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: config-map-01
+data:
+  # Propiedades web
+  max_pages_web: "10"
+  page.propierties: |
+    page.title: "Mi web"
+    page.description: "Mi web"

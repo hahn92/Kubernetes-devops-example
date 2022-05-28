@@ -1,0 +1,25 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx
+spec:
+  containers:
+    - name: nginx
+      image: nginx:alpine
+      env:
+        - name: max_pages_web
+          valueFrom:
+            configMapKeyRef:
+              name: config-map-01
+              key: max_pages_web
+      volumeMounts:
+        - name: config
+          mountPath: /config
+          readOnly: true
+  volumes:
+    - name: config
+      configMap:
+        name: config-map-01
+        items:
+          - key: page.propierties
+            path: page.propierties

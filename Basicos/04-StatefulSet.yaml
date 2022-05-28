@@ -1,0 +1,35 @@
+# Para Maquinas con discos, por lo general para bases de datos
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: my-app-statefulset
+spec:
+  selector:
+    matchLabels:
+      app: my-app
+  serviceName: my-app-service
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: my-app
+    spec:
+      containers:
+      - name: front
+        image: busybox
+        args:
+        - sleep
+        - infinity
+        volumeMounts:
+        - name: my-app-data
+          mountPath: /data
+  volumeClaimTemplates:
+  - metadata:
+      name: my-app-data
+    spec:
+      accessModes:
+      - ReadWriteOnce
+      resources:
+        requests:
+          storage: 1Gi
+        #storageClassName: my-app-storage
